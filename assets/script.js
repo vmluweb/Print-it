@@ -57,3 +57,13 @@ function genererSlide(slides) {
 }
 
 genererSlide(slides);
+
+// Ajout du listener pour activer la flèche du slide suivant
+const nextArrow = document.querySelector("#next_arrow");
+
+nextArrow.addEventListener("click", genererSlide(slides));
+
+// Ajout du listener pour activer la flèche du slide précédent
+const previousArrow = document.querySelector("#previous_arrow");
+
+previousArrow.addEventListener("click", genererSlide());
