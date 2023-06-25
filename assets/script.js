@@ -19,16 +19,41 @@ const slides = [
   },
 ];
 
-// Sélection des éléments
+// Sélection de la bannière
 const divBanner = document.querySelector("#banner");
 
-// Création et affichage des éléments
-const imageElement = document.createElement("img");
-imageElement.src = "./assets/images/slideshow/" + slides[0].image;
-imageElement.className = "banner-img";
+// Fonction qui génère le carrousel
+function genererSlide(slides) {
+  for (let i = 0; i < slides.length; i++) {
+    // Création de l'élément img
+    const imageElement = document.createElement("img");
+    imageElement.className = "banner-img";
 
-const textElement = document.createElement("p");
-textElement.innerHTML = slides[0].tagLine;
+    // Accès à l'indice i de la liste de slides pour configurer la source de l'image
+    imageElement.src = "./assets/images/slideshow/" + slides[i].image;
 
-divBanner.appendChild(imageElement);
-divBanner.appendChild(textElement);
+    // Ajout d'une condition pour vérifier l'index de l'image actuel et désaffichage des autres images du carrousel
+    if (i !== 0) {
+      imageElement.style.display = "none";
+    }
+
+    // Rattachement de l'image et son texte à l'élément bannière
+    divBanner.appendChild(imageElement);
+
+    // Création d'une balise p
+    const textElement = document.createElement("p");
+
+    // Accès à l'indice i de la liste de slides pour afficher le texte de l'image
+    textElement.innerHTML = slides[i].tagLine;
+
+    // Ajout d'une condition pour vérifier l'index de l'image actuel et désaffichage des autres images du carrousel
+    if (i !== 0) {
+      textElement.style.display = "none";
+    }
+
+    // Rattachement de l'image et son texte à l'élément bannière
+    divBanner.appendChild(textElement);
+  }
+}
+
+genererSlide(slides);
