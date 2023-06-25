@@ -56,14 +56,25 @@ function genererSlide(slides) {
   }
 }
 
+// Affiche le premier slide
 genererSlide(slides);
+
+// Suivi index du slide actuel
+let indexImageActuelle = 0;
 
 // Ajout du listener pour activer la flèche du slide suivant
 const nextArrow = document.querySelector("#next_arrow");
 
-nextArrow.addEventListener("click", genererSlide(slides));
+nextArrow.addEventListener("click", () => {
+  indexImageActuelle++;
+});
+console.log(indexImageActuelle);
 
 // Ajout du listener pour activer la flèche du slide précédent
 const previousArrow = document.querySelector("#previous_arrow");
 
-previousArrow.addEventListener("click", genererSlide());
+previousArrow.addEventListener("click", () => {
+  indexImageActuelle--;
+});
+
+console.log(indexImageActuelle);
