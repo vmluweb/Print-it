@@ -89,13 +89,16 @@ const bulletPointDiv = document.querySelector(".dots");
 
 // Ajout d'une fonctionnalité permettant de repérer le slide actif
 function genererBulletPoints(slides) {
-  // Création des bullet points en fonction du nombre de slide
+  // Création des bullet points en fonction du nombre de slides
   for (i = 0; i < slides.length; i++) {
     const dots = document.createElement("div");
     dots.className = "dot";
     bulletPointDiv.appendChild(dots);
 
-    // Ajout d'une condition pour modifier le style du bullet point co
+    // Ajout d'une condition pour modifier le style du bullet point actif en fonction du slide actuel
+    if (i === indexImageActuelle) {
+      dots.classList.add("dot_selected");
+    }
   }
 }
 
