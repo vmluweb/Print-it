@@ -67,8 +67,13 @@ const nextArrow = document.querySelector("#next_arrow");
 
 nextArrow.addEventListener("click", () => {
   indexImageActuelle++;
+  if (indexImageActuelle >= slides.length) {
+    indexImageActuelle = 0;
+  }
 });
 console.log(indexImageActuelle);
+
+// genererSlide(slides);
 
 // Ajout du listener pour activer la flèche du slide précédent
 const previousArrow = document.querySelector("#previous_arrow");
@@ -78,3 +83,20 @@ previousArrow.addEventListener("click", () => {
 });
 
 console.log(indexImageActuelle);
+
+// Sélection des bullets points
+const bulletPointDiv = document.querySelector(".dots");
+
+// Ajout d'une fonctionnalité permettant de repérer le slide actif
+function genererBulletPoints(slides) {
+  // Création des bullet points en fonction du nombre de slide
+  for (i = 0; i < slides.length; i++) {
+    const dots = document.createElement("div");
+    dots.className = "dot";
+    bulletPointDiv.appendChild(dots);
+
+    // Ajout d'une condition pour modifier le style du bullet point co
+  }
+}
+
+genererBulletPoints(slides);
