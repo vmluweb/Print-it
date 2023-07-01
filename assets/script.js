@@ -21,6 +21,9 @@ const slides = [
 
 // Sélection de la bannière
 const divBanner = document.querySelector("#banner");
+
+// Sélection des bullets points
+const bulletPointDiv = document.querySelector(".dots");
 // Suivi index du slide actuel
 let indexImageActuelle = 0;
 
@@ -53,6 +56,9 @@ function genererSlide(slides) {
   if (previousTextElement.innerHTML === previousSlide.tagLine) {
     divBanner.removeChild(previousTextElement);
   }
+
+  // Mise à jour du bullet point actif
+  updateBulletPoint();
 }
 
 // Ajout du listener pour activer la flèche du slide suivant
@@ -83,22 +89,38 @@ previousArrow.addEventListener("click", () => {
   }
 
   genererSlide(slides);
+
   // test de l'écouteur de la flèche de gauche pour vérifier le slide actuel
   console.log(slides[indexImageActuelle]);
 });
 
-// Ajout d'une fonctionnalité permettant de repérer le slide actif
+// Tableau stockant les éléments dots
+const bulletPointsArray = [];
+
+// Fonctionnalité de mise à jour du bullet point actif
+function updateBulletPoint() {
+  for (i = 0; i < bulletPointsArray.length; i++) {
+    // Suppression de la classe "dot_selected"
+    bulletPointsArray[i].classList.remove("dot_selected");
+  }
+
+  // Ajout de la classe "dot_selected" au bullet point équivalant au slide actif
+  bulletPointsArray[indexImageActuelle].classList.add("dot_selected");
+
+  // Vérification de l'index du bullet point actif
+  console.log("L'index du bullet point actif est: " + indexImageActuelle);
+}
+
+// Ajout d'une fonctionnalité permettant d'afficher le slide actif
 function genererBulletPoints(slides) {
-  // Sélection des bullets points
-  const bulletPointDiv = document.querySelector(".dots");
-
   for (let i = 0; i < slides.length; i++) {
-    console.log(typeof i);
     // Création des bullet points en fonction du nombre de slides
-
     const dots = document.createElement("div");
     dots.className = "dot";
     bulletPointDiv.appendChild(dots);
+
+    // Ajout des éléments dots dans le tableau bulletPointsArray
+    bulletPointsArray.push(dots);
 
     // Ajout d'une condition pour modifier le style du bullet point actif en fonction du slide actuel
     if (i === indexImageActuelle) {
@@ -106,4 +128,5 @@ function genererBulletPoints(slides) {
     }
   }
 }
+
 genererBulletPoints(slides);
