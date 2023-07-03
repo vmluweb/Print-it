@@ -24,12 +24,18 @@ const divBanner = document.querySelector("#banner");
 
 // Sélection des bullets points
 const bulletPointDiv = document.querySelector(".dots");
+
 // Suivi index du slide actuel
 let indexImageActuelle = 0;
 
 // Fonction qui génère le carrousel
 function genererSlide(slides) {
   let slide = slides[indexImageActuelle];
+
+  if (slide === undefined) {
+    indexImageActuelle = 0;
+    slide = slides[indexImageActuelle];
+  }
   // Création de l'élément img
   const imageElement = document.createElement("img");
   imageElement.className = "banner-img";
@@ -50,17 +56,15 @@ function genererSlide(slides) {
   divBanner.appendChild(textElement);
 
   // Suppression de l'élément "p" du slide précédent
-  const previousSlide = slides[indexImageActuelle - 1];
   const previousTextElement = divBanner.querySelector("p");
 
-  if (previousTextElement.innerHTML === previousSlide.tagLine) {
+  if (previousTextElement) {
     divBanner.removeChild(previousTextElement);
   }
 
   // Mise à jour du bullet point actif
   updateBulletPoint();
 }
-
 // Ajout du listener pour activer la flèche du slide suivant
 const nextArrow = document.querySelector("#next_arrow");
 
