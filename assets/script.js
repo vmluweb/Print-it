@@ -25,10 +25,10 @@ const divBanner = document.querySelector("#banner");
 // Sélection des bullets points
 const bulletPointDiv = document.querySelector(".dots");
 
-// Suivi index du slide actuel
+// Suivi index
 let indexImageActuelle = 0;
 
-// Fonction qui génère le carrousel
+// Carrousel
 function genererSlide(slides) {
   let slide = slides[indexImageActuelle];
 
@@ -39,25 +39,17 @@ function genererSlide(slides) {
   // Création de l'élément img
   const imageElement = document.createElement("img");
   imageElement.className = "banner-img";
-
-  // Accès à l'indice i de la liste de slides pour configurer la source de l'image
   imageElement.src = "./assets/images/slideshow/" + slide.image;
-
   // Rattachement de l'image et son texte à l'élément bannière
   divBanner.appendChild(imageElement);
 
-  // Création d'une balise p
+  // Création de l'élément p
   const textElement = document.createElement("p");
-
-  // Accès à l'indice i de la liste de slides pour afficher le texte de l'image
   textElement.innerHTML = slide.tagLine;
-
-  // Rattachement de l'image et son texte à l'élément bannière
   divBanner.appendChild(textElement);
 
   // Suppression de l'élément "p" du slide précédent
   const previousTextElement = divBanner.querySelector("p");
-
   if (previousTextElement) {
     divBanner.removeChild(previousTextElement);
   }
@@ -65,72 +57,55 @@ function genererSlide(slides) {
   // Mise à jour du bullet point actif
   updateBulletPoint();
 }
-// Ajout du listener pour activer la flèche du slide suivant
-const nextArrow = document.querySelector("#next_arrow");
 
+// Ajout des écouteurs d'événements
+// flèche de droite
+const nextArrow = document.querySelector("#next_arrow");
 nextArrow.addEventListener("click", () => {
   indexImageActuelle++;
-
-  // Ajout d'une condition pour vérifier la correspondance entre l'index et la longueur du tableau
+  // Correspondance entre l'index et la longueur du tableau
   if (indexImageActuelle >= slides.length) {
     indexImageActuelle = 0;
   }
-
   genererSlide(slides);
-  // test de l'écouteur de la flèche de droite pour vérifier le slide actuel
+  // test pour vérifier le fonctionnement des flèches
   console.log(slides[indexImageActuelle]);
 });
 
-// Ajout du listener pour activer la flèche du slide précédent
+// flèche de gauche
 const previousArrow = document.querySelector("#previous_arrow");
-
 previousArrow.addEventListener("click", () => {
   indexImageActuelle--;
-
-  // Ajout d'une condition pour vérifier la correspondance entre l'index et la longueur du tableau
   if (indexImageActuelle < 0) {
     indexImageActuelle = slides.length - 1;
   }
-
   genererSlide(slides);
-
-  // test de l'écouteur de la flèche de gauche pour vérifier le slide actuel
   console.log(slides[indexImageActuelle]);
 });
 
 // Tableau stockant les éléments dots
 const bulletPointsArray = [];
 
-// Fonctionnalité de mise à jour du bullet point actif
+function genererBulletPoints(slides) {
+  // Création des éléments dots
+  for (let i = 0; i < slides.length; i++) {
+    const dots = document.createElement("div");
+    dots.className = "dot";
+    bulletPointDiv.appendChild(dots);
+    // Ajout des éléments dots dans le tableau bulletPointsArray
+    bulletPointsArray.push(dots);
+  }
+}
+genererBulletPoints(slides);
+
+// Mise à jour du bullet point actif
 function updateBulletPoint() {
   for (i = 0; i < bulletPointsArray.length; i++) {
     // Suppression de la classe "dot_selected"
     bulletPointsArray[i].classList.remove("dot_selected");
   }
-
-  // Ajout de la classe "dot_selected" au bullet point équivalant au slide actif
+  // Ajout de la classe "dot_selected" au bullet point actif
   bulletPointsArray[indexImageActuelle].classList.add("dot_selected");
-
   // Vérification de l'index du bullet point actif
   console.log("L'index du bullet point actif est: " + indexImageActuelle);
 }
-
-// Ajout d'une fonctionnalité permettant d'afficher le slide actif
-function genererBulletPoints(slides) {
-  for (let i = 0; i < slides.length; i++) {
-    // Création des bullet points en fonction du nombre de slides
-    const dots = document.createElement("div");
-    dots.className = "dot";
-    bulletPointDiv.appendChild(dots);
-
-    // Ajout des éléments dots dans le tableau bulletPointsArray
-    bulletPointsArray.push(dots);
-
-    // Ajout d'une condition pour modifier le style du bullet point actif en fonction du slide actuel
-    if (i === indexImageActuelle) {
-      dots.classList.add("dot_selected");
-    }
-  }
-}
-
-genererBulletPoints(slides);
