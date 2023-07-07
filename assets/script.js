@@ -95,6 +95,7 @@ function genererBulletPoints(slides) {
     // Ajout des éléments dots dans le tableau bulletPointsArray
     bulletPointsArray.push(dots);
   }
+  updateBulletPoint();
 }
 genererBulletPoints(slides);
 
@@ -109,3 +110,5 @@ function updateBulletPoint() {
   // Vérification de l'index du bullet point actif
   console.log("L'index du bullet point actif est: " + indexImageActuelle);
 }
+
+genererSlide(slides);
